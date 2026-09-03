@@ -1,0 +1,24 @@
+[package]
+name = "billing-kit"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Billing primitives — Price with tax/discount, re-exporting decimal-money CurrencyAmount"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/WyattAu/billing-kit"
+keywords = ["billing", "money", "pricing", "tax", "decimal"]
+categories = ["finance"]
+exclude = ["/target"]
+readme = "README.md"
+
+[dependencies]
+decimal-money = { path = "../money" }
+rust_decimal = { version = "1", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+thiserror = "2"
+
+[dev-dependencies]
+rust_decimal_macros = "1"
+
+[lints.rust]
+unsafe_code = "forbid"
