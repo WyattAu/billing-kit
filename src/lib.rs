@@ -1,5 +1,7 @@
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
+// Test code asserts invariants directly; unwrap/expect keeps failures loud.
+#![cfg_attr(test, allow(clippy::unwrap_used, clippy::expect_used))]
 //! Billing primitives built on `decimal-money`.
 //!
 //! Re-exports [`decimal_money::CurrencyAmount`] and [`decimal_money::Currency`]

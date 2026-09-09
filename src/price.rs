@@ -40,7 +40,11 @@ impl Price {
     ///
     /// # Errors
     /// Returns [`PriceError::InvalidTaxRate`] if `tax_rate` is not in `0..=100`.
-    pub fn new(net_amount: impl Into<Decimal>, currency: Currency, tax_rate: Decimal) -> Result<Self, PriceError> {
+    pub fn new(
+        net_amount: impl Into<Decimal>,
+        currency: Currency,
+        tax_rate: Decimal,
+    ) -> Result<Self, PriceError> {
         if tax_rate < Decimal::ZERO || tax_rate > Decimal::from(100) {
             return Err(PriceError::InvalidTaxRate(tax_rate));
         }
@@ -51,21 +55,18 @@ impl Price {
     }
 
     /// Tax amount = `net * tax_rate / 100`.
-    #[must_use]
     pub fn tax_amount(&self) -> CurrencyAmount {
         let tax = self.net.amount * self.tax_rate / Decimal::from(100);
         CurrencyAmount::new(tax, self.net.currency)
     }
 
     /// Gross amount = `net + tax`.
-    #[must_use]
+    #[allow(clippy::expect_used)] // same-currency addition cannot fail
     pub fn gross(&self) -> CurrencyAmount {
-        // unwrap: same currency, decimal addition cannot mismatch.
         (self.net.clone() + self.tax_amount()).expect("same currency")
     }
 
     /// Discount amount at `percent`% of gross (0-100).
-    #[must_use]
     pub fn discount_of_gross(&self, percent: Decimal) -> CurrencyAmount {
         let gross = self.gross();
         CurrencyAmount::new(gross.amount * percent / Decimal::from(100), gross.currency)
@@ -74,7 +75,6 @@ impl Price {
     /// Apply a promo discount to gross, returning the discounted gross.
     ///
     /// Clamps `percent` to 0..=100 and never returns a negative amount.
-    #[must_use]
     pub fn gross_minus_discount(&self, percent: Decimal) -> CurrencyAmount {
         let gross = self.gross();
         let pct = percent.clamp(Decimal::ZERO, Decimal::from(100));
