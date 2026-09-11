@@ -21,7 +21,6 @@ dependencies = [
  "decimal-money",
  "rust_decimal",
  "rust_decimal_macros",
- "serde",
  "thiserror",
 ]
 

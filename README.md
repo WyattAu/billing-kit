@@ -1,5 +1,9 @@
 # billing-kit
 
+[![docs.rs](https://docs.rs/billing-kit/badge.svg)](https://docs.rs/billing-kit)
+[![crates.io](https://img.shields.io/crates/v/billing-kit.svg)](https://crates.io/crates/billing-kit)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
+
 Billing primitives on top of [`decimal-money`](https://github.com/WyattAu/money).
 
 - Re-exports `Currency`, `CurrencyAmount`, `MoneyError`
