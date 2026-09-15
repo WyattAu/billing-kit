@@ -74,9 +74,9 @@ checksum = "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527"
 
 [[package]]
 name = "decimal-money"
-version = "0.2.0"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b7e882f03dbd08b679211bdd5a22e68d5b81865eb9bf252e55ee8cb4caddfd42"
+checksum = "25ad7be141f67e1f31af099aa59071b8ab847a132a73a73a1bd0255dec63a9ed"
 dependencies = [
  "rust_decimal",
  "serde",
