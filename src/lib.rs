@@ -12,5 +12,12 @@
 pub use decimal_money::{Currency, CurrencyAmount, MoneyError};
 pub use rust_decimal::Decimal;
 
+mod fx;
 mod price;
+mod status;
+mod webhooks;
+
+pub use fx::{exceeds_fx_tolerance, FX_DRIFT_TOLERANCE_BPS, FX_LOCK_WINDOW_SECONDS};
 pub use price::{Price, PriceError};
+pub use status::{PaymentStatus, TransitionError};
+pub use webhooks::{verify_bacs_dd, verify_fena, verify_wallid};

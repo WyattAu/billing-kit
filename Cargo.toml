@@ -1,6 +1,6 @@
 [package]
 name = "billing-kit"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.85"
 description = "Billing primitives — Price with tax/discount, re-exporting decimal-money CurrencyAmount"
@@ -12,11 +12,21 @@ exclude = ["/target"]
 readme = "README.md"
 
 [dependencies]
-decimal-money = { version = "0.2" }
+base64 = "0.22"
+decimal-money = "1"
+hmac = "0.12"
 rust_decimal = { version = "1", features = ["serde"] }
+serde = { version = "1", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+sha2 = "0.10"
 thiserror = "2"
 
+[features]
+default = ["serde"]
+serde = ["dep:serde", "dep:serde_json", "rust_decimal/serde"]
+
 [dev-dependencies]
+chrono = "0.4"
 rust_decimal_macros = "1"
 
 [lints.rust]

@@ -8,6 +8,9 @@ Billing primitives on top of [`decimal-money`](https://github.com/WyattAu/money)
 
 - Re-exports `Currency`, `CurrencyAmount`, `MoneyError`
 - `Price` — net + tax_rate% (VAT), with `gross()`, `tax_amount()`, `discount_of_gross()`, `gross_minus_discount()`
+- `PaymentStatus` — 6-state payment lifecycle with a validated transition table
+- FX drift guard (`exceeds_fx_tolerance`, 200 bps tolerance)
+- Provider webhook verifiers — Fena, Wallid (timestamped + replay-protected), Bacs DD — all fail-closed
 
 ## Quick start
 
