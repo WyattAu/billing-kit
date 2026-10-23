@@ -1,4 +1,5 @@
 # billing-kit
+[![Estate integration](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml/badge.svg)](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml)
 
 [![docs.rs](https://docs.rs/billing-kit/badge.svg)](https://docs.rs/billing-kit)
 [![crates.io](https://img.shields.io/crates/v/billing-kit.svg)](https://crates.io/crates/billing-kit)
