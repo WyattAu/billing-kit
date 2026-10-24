@@ -1,9 +1,9 @@
 [package]
 name = "billing-kit"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 rust-version = "1.85"
-description = "Billing primitives — Price with tax/discount, re-exporting decimal-money CurrencyAmount"
+description = "Billing primitives: Price with tax/discount, re-exporting decimal-money CurrencyAmount"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/WyattAu/billing-kit"
 keywords = ["billing", "money", "pricing", "tax", "decimal"]
