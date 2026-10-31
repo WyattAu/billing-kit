@@ -1,11 +1,11 @@
-# Threat Model — billing-kit
+# Threat Model: billing-kit
 
 Reference: STRIDE. Scope: the crate's public API surface. Trust boundary:
 (1) bytes/inputs entering public constructors and parsers, (2) concurrent
-callers sharing interior state. billing-kit is an in-process library — it opens
+callers sharing interior state. billing-kit is an in-process library; it opens
 no sockets and inherits the embedding process's trust domain.
 
-Purpose: Billing primitives (`billing-kit`) — money-quantities, proration, and invoice line computation
+Purpose: Billing primitives (`billing-kit`); money-quantities, proration, and invoice line computation
 
 ## Assets
 

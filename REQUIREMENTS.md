@@ -1,9 +1,9 @@
-# Requirements — billing-kit
+# Requirements: billing-kit
 
 Numbered, testable requirements. Every requirement maps to at least one named
 test or doc-comment contract; security-relevant items cite threat-model rows.
 
-Scope: Billing primitives (`billing-kit`) — money-quantities, proration, and invoice line computation
+Scope: Billing primitives (`billing-kit`); money-quantities, proration, and invoice line computation
 
 ## Functional
 
