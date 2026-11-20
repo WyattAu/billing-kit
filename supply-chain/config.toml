@@ -168,11 +168,11 @@ version = "3.0.4"
 criteria = "safe-to-deploy"
 
 [[exemptions.thiserror]]
-version = "2.0.20"
+version = "2.0.21"
 criteria = "safe-to-deploy"
 
 [[exemptions.thiserror-impl]]
-version = "2.0.20"
+version = "2.0.21"
 criteria = "safe-to-deploy"
 
 [[exemptions.toml_datetime]]
