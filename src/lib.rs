@@ -17,7 +17,7 @@ mod price;
 mod status;
 mod webhooks;
 
-pub use fx::{exceeds_fx_tolerance, FX_DRIFT_TOLERANCE_BPS, FX_LOCK_WINDOW_SECONDS};
+pub use fx::{FX_DRIFT_TOLERANCE_BPS, FX_LOCK_WINDOW_SECONDS, exceeds_fx_tolerance};
 pub use price::{Price, PriceError};
 pub use status::{PaymentStatus, TransitionError};
 pub use webhooks::{verify_bacs_dd, verify_fena, verify_wallid};

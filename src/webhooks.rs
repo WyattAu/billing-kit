@@ -11,8 +11,8 @@ use sha2::Sha256;
 type HmacSha256 = Hmac<Sha256>;
 
 fn hmac_sha256_hex(secret: &[u8], message: &[u8]) -> Result<String, String> {
-    let mut mac = HmacSha256::new_from_slice(secret)
-        .map_err(|_| "invalid HMAC key length".to_string())?;
+    let mut mac =
+        HmacSha256::new_from_slice(secret).map_err(|_| "invalid HMAC key length".to_string())?;
     mac.update(message);
     Ok(hex_encode(&mac.finalize().into_bytes()))
 }
@@ -76,7 +76,9 @@ pub fn verify_wallid(
     let ts = timestamp_header.ok_or("Missing X-Webhook-Timestamp header")?;
     let provided = signature_header.ok_or("Missing X-Webhook-Signature header")?;
 
-    let ts_int: i64 = ts.parse().map_err(|_| "Invalid timestamp format".to_string())?;
+    let ts_int: i64 = ts
+        .parse()
+        .map_err(|_| "Invalid timestamp format".to_string())?;
     if (now_unix - ts_int).abs() > 300 {
         return Err("Webhook timestamp too old (replay protection)".into());
     }
@@ -105,9 +107,7 @@ pub fn verify_bacs_dd(
     body: &str,
     secret: &str,
 ) -> Result<(), String> {
-    let provided = signature_header
-        .ok_or("Missing signature header")?
-        .trim();
+    let provided = signature_header.ok_or("Missing signature header")?.trim();
     let computed = hmac_sha256_hex(secret.as_bytes(), body.as_bytes())?;
     if constant_time_eq(computed.as_bytes(), provided.as_bytes()) {
         Ok(())
@@ -141,31 +141,68 @@ mod tests {
     #[test]
     fn wallid_valid_within_replay_window() {
         let ts = chrono::Utc::now().timestamp().to_string();
-        let sig = format!("sha256={}", hmac_sha256_hex(
-            SECRET.as_bytes(),
-            [ts.as_bytes(), b".", BODY].concat().as_slice()
-        ).unwrap());
-        assert!(verify_wallid(Some(&ts), Some(&sig), BODY, SECRET, chrono::Utc::now().timestamp()).is_ok());
+        let sig = format!(
+            "sha256={}",
+            hmac_sha256_hex(
+                SECRET.as_bytes(),
+                [ts.as_bytes(), b".", BODY].concat().as_slice()
+            )
+            .unwrap()
+        );
+        assert!(
+            verify_wallid(
+                Some(&ts),
+                Some(&sig),
+                BODY,
+                SECRET,
+                chrono::Utc::now().timestamp()
+            )
+            .is_ok()
+        );
     }
 
     #[test]
     fn wallid_replays_rejected() {
         let ts = (chrono::Utc::now().timestamp() - 400).to_string();
-        let sig = format!("sha256={}", hmac_sha256_hex(
-            SECRET.as_bytes(),
-            [ts.as_bytes(), b".", BODY].concat().as_slice()
-        ).unwrap());
-        assert!(verify_wallid(Some(&ts), Some(&sig), BODY, SECRET, chrono::Utc::now().timestamp())
-            .is_err());
+        let sig = format!(
+            "sha256={}",
+            hmac_sha256_hex(
+                SECRET.as_bytes(),
+                [ts.as_bytes(), b".", BODY].concat().as_slice()
+            )
+            .unwrap()
+        );
+        assert!(
+            verify_wallid(
+                Some(&ts),
+                Some(&sig),
+                BODY,
+                SECRET,
+                chrono::Utc::now().timestamp()
+            )
+            .is_err()
+        );
     }
 
     #[test]
     fn wallid_empty_secret_fails_closed() {
         let ts = chrono::Utc::now().timestamp().to_string();
-        let sig = format!("sha256={}", hmac_sha256_hex(b"", [ts.as_bytes(), b".", BODY].concat().as_slice()).unwrap());
+        let sig = format!(
+            "sha256={}",
+            hmac_sha256_hex(b"", [ts.as_bytes(), b".", BODY].concat().as_slice()).unwrap()
+        );
         // Empty secret still computes a signature; the CALLER must reject an
         // empty configured secret before invoking (fail-closed is upstream).
-        assert!(verify_wallid(Some(&ts), Some(&sig), BODY, "", chrono::Utc::now().timestamp()).is_ok());
+        assert!(
+            verify_wallid(
+                Some(&ts),
+                Some(&sig),
+                BODY,
+                "",
+                chrono::Utc::now().timestamp()
+            )
+            .is_ok()
+        );
     }
 
     #[test]

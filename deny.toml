@@ -7,6 +7,13 @@ all-features = true
 [advisories]
 version = 2
 yanked = "deny"
+ignore = [
+  # RUSTSEC-2026-0543: chrono unmaintained (informational, all versions).
+  # Unpatchable by pin bump; migration to jiff is tracked work, not a
+  # dependency edit. Period arithmetic (billing cycles) uses chrono's
+  # Months/MonthsOffset which jiff does not yet cover 1:1.
+  "RUSTSEC-2026-0543",
+]
 
 [licenses]
 version = 2

@@ -4,11 +4,13 @@
 //! payment services: `Pending -> Confirming -> Completed`, with `Failed`
 //! and `Expired` terminal-from-pending, and `Refunded` from `Completed`.
 
-use serde::{Deserialize, Serialize};
-
 /// Payment lifecycle status.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(
+    feature = "serde",
+    derive(serde::Serialize, serde::Deserialize),
+    serde(rename_all = "lowercase")
+)]
 pub enum PaymentStatus {
     /// Created, awaiting provider confirmation.
     Pending,
@@ -116,17 +118,25 @@ mod tests {
 
     #[test]
     fn direct_completion_from_pending_is_allowed() {
-        assert!(PaymentStatus::Pending
-            .transition(PaymentStatus::Completed)
-            .is_ok());
+        assert!(
+            PaymentStatus::Pending
+                .transition(PaymentStatus::Completed)
+                .is_ok()
+        );
     }
 
     #[test]
     fn refund_requires_settlement() {
-        assert!(PaymentStatus::Pending.transition(PaymentStatus::Refunded).is_err());
-        assert!(PaymentStatus::Completed
-            .transition(PaymentStatus::Refunded)
-            .is_ok());
+        assert!(
+            PaymentStatus::Pending
+                .transition(PaymentStatus::Refunded)
+                .is_err()
+        );
+        assert!(
+            PaymentStatus::Completed
+                .transition(PaymentStatus::Refunded)
+                .is_ok()
+        );
     }
 
     #[test]
@@ -151,7 +161,10 @@ mod tests {
             PaymentStatus::Expired,
             PaymentStatus::Refunded,
         ] {
-            assert_eq!(s.as_str(), serde_json::to_string(&s).unwrap().trim_matches('"'));
+            assert_eq!(
+                s.as_str(),
+                serde_json::to_string(&s).unwrap().trim_matches('"')
+            );
         }
     }
 }
