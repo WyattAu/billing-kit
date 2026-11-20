@@ -7,7 +7,6 @@ version = "0.10"
 [policy.billing-kit]
 audit-as-crates-io = true
 
-
 [[exemptions.android_system_properties]]
 version = "0.1.6"
 criteria = "safe-to-run"
@@ -109,6 +108,10 @@ version = "0.14.7"
 criteria = "safe-to-deploy"
 
 [[exemptions.getrandom]]
+version = "0.2.17"
+criteria = "safe-to-deploy"
+
+[[exemptions.getrandom]]
 version = "0.3.4"
 criteria = "safe-to-deploy"
 
@@ -185,11 +188,23 @@ version = "5.3.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.rand]]
+version = "0.8.8"
+criteria = "safe-to-deploy"
+
+[[exemptions.rand]]
 version = "0.9.5"
 criteria = "safe-to-deploy"
 
 [[exemptions.rand_chacha]]
+version = "0.3.1"
+criteria = "safe-to-deploy"
+
+[[exemptions.rand_chacha]]
 version = "0.9.0"
+criteria = "safe-to-deploy"
+
+[[exemptions.rand_core]]
+version = "0.6.4"
 criteria = "safe-to-deploy"
 
 [[exemptions.rand_core]]
@@ -241,7 +256,15 @@ version = "2.6.1"
 criteria = "safe-to-deploy"
 
 [[exemptions.syn]]
+version = "2.0.119"
+criteria = "safe-to-deploy"
+
+[[exemptions.syn]]
 version = "3.0.4"
+criteria = "safe-to-deploy"
+
+[[exemptions.syn]]
+version = "3.0.6"
 criteria = "safe-to-deploy"
 
 [[exemptions.thiserror]]
@@ -258,6 +281,10 @@ criteria = "safe-to-deploy"
 
 [[exemptions.toml_edit]]
 version = "0.25.13+spec-1.1.0"
+criteria = "safe-to-deploy"
+
+[[exemptions.toml_edit]]
+version = "0.25.15+spec-1.1.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.toml_parser]]
